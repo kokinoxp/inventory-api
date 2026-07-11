@@ -1,5 +1,9 @@
 package com.orporsoft.inventory.entity;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,13 +11,14 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "product")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = {"description"})
+@ToString(exclude = { "description" })
 @EqualsAndHashCode(of = "id")
 public class Product {
 
@@ -39,10 +44,11 @@ public class Product {
     @Column(nullable = false, length = 20)
     private String status;
 
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", insertable = false)
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
 }

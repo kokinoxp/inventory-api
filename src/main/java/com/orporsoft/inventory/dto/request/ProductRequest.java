@@ -12,20 +12,22 @@ import java.math.BigDecimal;
 @Builder
 public class ProductRequest {
 
-    @NotBlank
+    @NotBlank(message = "Code is required")
     private String code;
 
-    @NotBlank
+    @NotBlank(message = "name is required")
     private String name;
 
     private String description;
 
     @NotNull
-    @DecimalMin("0.00")
+    @DecimalMin(value = "0.01", message = "Price must be greater than zero")
     private BigDecimal price;
 
     @NotNull
-    @Min(0)
+    @Min(value = 0, message = "Quantity cannot be negative")
     private Integer quantity;
+
+    private String status;
 
 }
