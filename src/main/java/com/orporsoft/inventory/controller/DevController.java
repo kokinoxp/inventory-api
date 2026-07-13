@@ -17,7 +17,7 @@ public class DevController {
     @GetMapping("/password")
     public String password() {
 
-        return encoder.encode("admin123");
+        return encoder.encode("user123");
 
     }
 

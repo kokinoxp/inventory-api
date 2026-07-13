@@ -10,9 +10,11 @@ import com.orporsoft.inventory.auth.LoginResponse;
 import com.orporsoft.inventory.common.ApiResponse;
 import com.orporsoft.inventory.service.interfaces.AuthService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+@Tag(name="Authentication")
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor

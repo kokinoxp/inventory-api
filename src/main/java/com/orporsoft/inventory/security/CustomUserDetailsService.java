@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.orporsoft.inventory.entity.Role;
 import com.orporsoft.inventory.entity.User;
 import com.orporsoft.inventory.repository.UserRepository;
 
@@ -26,7 +27,13 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .disabled(!Boolean.TRUE.equals(user.getEnabled()))
-                .authorities("ROLE_USER")
+                .authorities(
+                    user
+                    .getRoles()
+                    .stream()
+                    .map(Role::getName)
+                    .toArray(String[]::new)
+                )
                 .build();
 
     }
