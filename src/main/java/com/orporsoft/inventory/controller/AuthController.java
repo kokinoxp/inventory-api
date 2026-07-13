@@ -1,0 +1,34 @@
+package com.orporsoft.inventory.controller;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.orporsoft.inventory.auth.LoginRequest;
+import com.orporsoft.inventory.auth.LoginResponse;
+import com.orporsoft.inventory.common.ApiResponse;
+import com.orporsoft.inventory.service.interfaces.AuthService;
+
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequestMapping("/api/auth")
+@RequiredArgsConstructor
+public class AuthController {
+    private final AuthService authService;
+
+    @PostMapping("/login")
+    public ApiResponse<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
+
+        LoginResponse response = authService.login(request);
+
+        return ApiResponse.<LoginResponse>builder()
+                .success(true)
+                .message("Login successful")
+                .data(response)
+                .build();
+    }
+    
+}
