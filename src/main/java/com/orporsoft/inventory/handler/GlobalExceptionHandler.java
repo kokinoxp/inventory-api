@@ -1,6 +1,6 @@
 package com.orporsoft.inventory.handler;
 
-import com.orporsoft.inventory.common.ErrorResponse;
+import com.orporsoft.inventory.common.response.ErrorResponse;
 import com.orporsoft.inventory.exception.DuplicateResourceException;
 import com.orporsoft.inventory.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
