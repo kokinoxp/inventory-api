@@ -5,6 +5,9 @@ import com.orporsoft.inventory.modules.supplier.dto.response.SupplierResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 public interface SupplierService {
 
     SupplierResponse create(SupplierRequest request);
@@ -16,5 +19,7 @@ public interface SupplierService {
     List<SupplierResponse> findAll();
 
     void delete(Long id);
+
+    Page<SupplierResponse> search(String keyword, String status, Pageable pageable);
 
 }

@@ -7,7 +7,13 @@ import com.orporsoft.inventory.modules.supplier.dto.response.SupplierResponse;
 import com.orporsoft.inventory.modules.supplier.entity.Supplier;
 import com.orporsoft.inventory.modules.supplier.mapper.SupplierMapper;
 import com.orporsoft.inventory.modules.supplier.repository.SupplierRepository;
+import com.orporsoft.inventory.modules.supplier.specification.SupplierSpecification;
+
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,8 +43,7 @@ public class SupplierServiceImpl implements SupplierService {
     public SupplierResponse update(Long id, SupplierRequest request) {
 
         Supplier supplier = repository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Supplier not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Supplier not found"));
 
         if (!supplier.getCode().equals(request.getCode())
                 && repository.existsByCode(request.getCode())) {
@@ -63,8 +68,7 @@ public class SupplierServiceImpl implements SupplierService {
     public SupplierResponse findById(Long id) {
 
         Supplier supplier = repository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Supplier not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Supplier not found"));
 
         return mapper.toResponse(supplier);
     }
@@ -82,10 +86,26 @@ public class SupplierServiceImpl implements SupplierService {
     public void delete(Long id) {
 
         Supplier supplier = repository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Supplier not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Supplier not found"));
 
         repository.delete(supplier);
+    }
+
+    @Override
+    public Page<SupplierResponse> search(
+            String keyword,
+            String status,
+            Pageable pageable) {
+
+        Specification<Supplier> specification = Specification.where(
+                SupplierSpecification.keyword(keyword))
+                .and(
+                        SupplierSpecification.status(status));
+
+        return repository
+                .findAll(specification, pageable)
+                .map(mapper::toResponse);
+
     }
 
 }
