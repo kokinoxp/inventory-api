@@ -4,6 +4,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.orporsoft.inventory.modules.category.entity.Category;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -43,6 +45,10 @@ public class Product {
 
     @Column(nullable = false, length = 20)
     private String status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @CreatedDate
     @Column(updatable = false)

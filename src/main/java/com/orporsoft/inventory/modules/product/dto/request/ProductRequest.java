@@ -30,4 +30,7 @@ public class ProductRequest {
 
     private String status;
 
+    @NotNull(message = "Category is required")
+    private Long categoryId;
+
 }

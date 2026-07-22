@@ -26,6 +26,12 @@ public class ProductResponse {
 
     private String status;
 
+    private Long categoryId;
+
+    private String categoryCode;
+
+    private String categoryName;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
